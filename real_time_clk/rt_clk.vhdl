@@ -54,18 +54,11 @@ use work.rt_utils.all;
 
 entity rt_clk is
   generic(
-    ms: integer:=500 -- default : 2*500ms=1s=1Hz
+    ms: integer:=500 -- default : 2*500ms = 1s = 1Hz
   );
   port(
     clk: inout std_ulogic:='0';
-    -- clk est en mode "inout" pour qu'on puisse relire
-    -- sa derniere valeur afin de la modifier.
-    -- La valeur est initialisee a '0' car sinon
-    -- elle est a 'U' par defaut, valeur qui donne
-    -- elle-meme lorsqu'on effectue l'operation "not".
-
-    stop: in  std_ulogic:='0'
-    -- mettre a '1' pour arreter la simulation
+    stop: in  std_ulogic:='0' -- set to '1' to stop the simulation
   );
 end entity;
 
@@ -74,8 +67,6 @@ begin
   process is
   begin
     realtime_init(ms);
---    report "setting real time interval to "
---         & integer'image(ms) & "ms";
 
     while stop='0' loop
       wait for ms * 1000 us;
