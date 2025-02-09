@@ -1,34 +1,33 @@
 library ieee;
 use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
 
 library work;
 use work.rt_utils.all;
 
 entity clk_exemple is
-  -- empty
+  Generic(freq : integer := 10); -- Main real-time clock frequency (1000Hz max)
 end entity;
 
 architecture exemple of clk_exemple is
-  -- Initialize the clock to '0' so it can oscillate
-  signal clk, stop: std_ulogic:='0';
-
+  signal rt_clk, stop: std_ulogic:='0';
 begin
-  -- instantiate the clock package :
-  horloge : entity work.rt_clk
-    generic map(ms => 500) -- 1Hz
-    port map(clk => clk, stop => stop);
 
-  process(clk) is
+  -- real-time main clock:
+  clock : entity work.rt_clk
+    generic map(ms => (1000/(2*freq)))
+    port map(clk => rt_clk, stop => stop);
+
+  process(rt_clk) is
     variable counter: integer := 0;
   begin
-    if rising_edge(clk) then
+    if rising_edge(rt_clk) then
       counter := counter + 1;
-      if counter >= 10 then
+      if counter >= 10000000000 then -- run indefinetly
         stop <= '1';
       end if;
     end if;
   end process;
 
-  observe_std_ulogic("clk",clk);
-
+  observe_std_ulogic("clk",rt_clk);
 end exemple;
