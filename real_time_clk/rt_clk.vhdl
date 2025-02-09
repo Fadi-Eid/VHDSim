@@ -2,7 +2,7 @@ library ieee;
 use ieee.std_logic_1164.all;
 
 package rt_utils is
-  procedure observe_std_ulogic (name: string; s:std_ulogic);
+  procedure observe_bit (name: string; s:bit);
 
   procedure realtime_init(ms : integer);
     attribute foreign of realtime_init :
@@ -19,9 +19,9 @@ end rt_utils;
 
 package body rt_utils is
 
-  procedure observe_std_ulogic (name: string; s:std_ulogic) is
+  procedure observe_bit (name: string; s:bit) is
   begin
-    report name & "=" & std_ulogic'image(s);
+    report name & "=" & bit'image(s);
   end procedure;
 
 -- Empty functions : C code implemented
@@ -54,11 +54,11 @@ use work.rt_utils.all;
 
 entity rt_clk is
   generic(
-    ms: integer:=500 -- default : 2*500ms = 1s = 1Hz
+    ms: integer:= 500 -- default : 1Hz
   );
   port(
-    clk: inout std_ulogic:='0';
-    stop: in  std_ulogic:='0' -- set to '1' to stop the simulation
+    clk: buffer bit:='0';
+    stop: in  bit:='0' -- set to '1' to stop the simulation
   );
 end entity;
 
@@ -73,7 +73,7 @@ begin
       while realtime_delay=0 loop
         wait for 0 ns;  -- tourne un peu a vide
       end loop;
-      clk <= not clk;
+        clk <= not clk;
     end loop;
 
     realtime_exit;

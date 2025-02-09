@@ -5,10 +5,10 @@ use ieee.numeric_std.all;
 library work;
 use work.rt_utils.all;
 
-entity clk_exemple is
-end entity;
+entity binder is
+end binder;
 
-architecture exemple of clk_exemple is
+architecture binder of binder is
   signal clk, stop: bit:='0';
 begin
 
@@ -17,5 +17,6 @@ begin
     generic map(ms => 1) -- half period in ms
     port map(clk => clk, stop => stop);
 
-  observe_bit("clk",clk);
-end exemple;
+  user : entity work.user_circuit
+    port map(clk => clk); -- Direct connection
+end binder;
