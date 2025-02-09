@@ -1,31 +1,8 @@
--- Fichier : rt_clk.vhdl
--- created by Yann Guidon / ygdes.com
--- jeu. avril 15 20:13:20 CEST 2010
--- version lun. juin 21 14:30:07 CEST 2010 : timing modified
-
--- rt_clk.vhdl : clock generator that is synchronised with the host computer
--- Copyright (C) 2010 Yann GUIDON
---
--- This program is free software: you can redistribute it and/or modify
--- it under the terms of the GNU General Public License as published by
--- the Free Software Foundation, either version 3 of the License, or
--- (at your option) any later version.
---
--- This program is distributed in the hope that it will be useful,
--- but WITHOUT ANY WARRANTY; without even the implied warranty of
--- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
--- GNU General Public License for more details.
---
--- You should have received a copy of the GNU General Public License
--- along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-
 library ieee;
 use ieee.std_logic_1164.all;
 
 package rt_utils is
-  procedure observe_std_ulogic
-    (name: string; s:std_ulogic);
+  procedure observe_std_ulogic (name: string; s:std_ulogic);
 
   procedure realtime_init(ms : integer);
     attribute foreign of realtime_init :
@@ -42,13 +19,12 @@ end rt_utils;
 
 package body rt_utils is
 
-  procedure observe_std_ulogic
-    (name: string; s:std_ulogic) is
+  procedure observe_std_ulogic (name: string; s:std_ulogic) is
   begin
     report name & "=" & std_ulogic'image(s);
   end procedure;
 
--- fonctions vides, dont le code est en C :
+-- Empty functions : C code implemented
 
   procedure realtime_init(ms : integer) is
   begin
@@ -81,7 +57,7 @@ entity rt_clk is
     ms: integer:=500 -- default : 2*500ms=1s=1Hz
   );
   port(
-    clk : inout std_ulogic:='0';
+    clk: inout std_ulogic:='0';
     -- clk est en mode "inout" pour qu'on puisse relire
     -- sa derniere valeur afin de la modifier.
     -- La valeur est initialisee a '0' car sinon
