@@ -4,8 +4,10 @@ use ieee.numeric_std.all;
 
 entity user_circuit is
     port(
-      clk : in bit;
-      led : out bit
+      clk : in bit; -- this signal is driven by a virtual external clock (500Hz)
+      
+      led : out bit;
+      btn : in bit
     );
 end user_circuit;
   
@@ -13,10 +15,10 @@ architecture behavior of user_circuit is
 begin
     process(clk)
     begin
-        if clk='1' then
-            report "clk = 1";
+        if clk'event and clk='1' then
+            report "CLOCK ON";
         else
-            report "clk = 0";
+            report "CLOCK OFF";
         end if;
     end process;
 end behavior;
