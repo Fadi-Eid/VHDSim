@@ -1,9 +1,11 @@
-To be able to compile the 7segment demo do the following:
+## Brief:
+VHDSim is a real-time VHDL simulator where you can write your test code and monitor the output in real-time with a configurable 500Hz real-time clock.
 
-* build ghdl from source:
-git clone https://github.com/ghdl/ghdl.git
+To be able to compile and use the demo do the following:
 
-* install llvm: `sudo apt-get update` && `sudo apt-get install llvm`
+* build ghdl from source: `git clone https://github.com/ghdl/ghdl.git`
+
+* install llvm: `sudo apt-get update && sudo apt-get install llvm`
 
 * install clang: `sudo apt install clang`
 
@@ -20,3 +22,7 @@ git clone https://github.com/ghdl/ghdl.git
 * build and install ghdl:
   * `make`
   * `sudo make install`
+ 
+ * Write your code in the user_circuit.vhdl file, you can make use of `clk : in bit;` but do not change it.
+ * Build you GHDL code: `bash build.sh`
+ * Run the generated executable.
