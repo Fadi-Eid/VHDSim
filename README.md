@@ -26,3 +26,6 @@ To be able to compile and use the demo do the following:
  * Write your code in the user_circuit.vhdl file, you can make use of `clk : in bit;` but do not change it.
  * Build you GHDL code: `bash build.sh`
  * Run the generated executable.
+
+## Resources
+http://ygdes.com/GHDL/
